@@ -1,0 +1,15 @@
+User: Hi
+Agent: Hi! Please provide your account ID.
+User: My account is ACC1001
+Agent: Thanks. Please provide your full name and at least one of: DOB, Aadhaar last 4, or pincode.
+User: My name is Nithin Jain and DOB is 14th May 1990
+Agent: Identity verified. You may proceed to the payment step.
+User: I'll pay 500 for now
+Agent: Please provide the cardholder name, card number, CVV, and expiry date.
+User: Cardholder Nithin Jain
+User: 4532 0151 1283 0366
+User: CVV 123
+User: 12/2027
+Agent: Payment details are ready. Say 'process payment' to complete the charge.
+User: process payment
+Agent: Payment successful. Transaction ID: txn_example_success. Amount charged: 500. Conversation closed.

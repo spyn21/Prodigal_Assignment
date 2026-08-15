@@ -1,0 +1,110 @@
+[
+  {
+    "id": "happy_standard_success",
+    "category": "A. HAPPY PATH",
+    "description": "standard success",
+    "messages": ["Hi", "ACC1001", "my name is Nithin Jain", "I was born on 14th May 1990", "I'll pay 500 for now", "cardholder is Nithin Jain", "4532 0151 1283 0366", "CVV is one two three", "expires December 2027", "process payment"],
+    "lookup": {"type": "ok", "account_id": "ACC1001"},
+    "payment": {"type": "ok"},
+    "expected": {"final_state": "SUCCESS", "lookup_calls": 1, "payment_calls": 1, "verified": true, "sensitive_leak": false}
+  },
+  {
+    "id": "happy_conversational_success",
+    "category": "A. HAPPY PATH",
+    "description": "conversational success with multi-turn prompts",
+    "messages": ["Hi", "yeah my account is ACC 1001", "my name is Nithin Jain", "I was born on 14th May 1990", "I'll pay the full amount", "cardholder Nithin Jain", "4532015112830366", "CVV 123", "12/2027", "process payment"],
+    "lookup": {"type": "ok", "account_id": "ACC1001"},
+    "payment": {"type": "ok"},
+    "expected": {"final_state": "SUCCESS", "lookup_calls": 1, "payment_calls": 1, "verified": true, "sensitive_leak": false}
+  },
+  {
+    "id": "happy_multiple_fields_one_turn",
+    "category": "A. HAPPY PATH",
+    "description": "multiple fields in one turn",
+    "messages": ["Hi", "My account is ACC1001, my full name is Nithin Jain and DOB is 14 May 1990", "I'll pay 500", "cardholder is Nithin Jain, 4532 0151 1283 0366, CVV 123, expires 12/2027", "process payment"],
+    "lookup": {"type": "ok", "account_id": "ACC1001"},
+    "payment": {"type": "ok"},
+    "expected": {"final_state": "SUCCESS", "lookup_calls": 1, "payment_calls": 1, "verified": true, "sensitive_leak": false}
+  },
+  {
+    "id": "happy_partial_payment",
+    "category": "A. HAPPY PATH",
+    "description": "partial payment",
+    "messages": ["Hi", "ACC1001", "my name is Nithin Jain", "1990-05-14", "pay 500 for now", "cardholder Nithin Jain", "4532015112830366", "CVV 123", "12/2027", "process payment"],
+    "lookup": {"type": "ok", "account_id": "ACC1001"},
+    "payment": {"type": "ok"},
+    "expected": {"final_state": "SUCCESS", "lookup_calls": 1, "payment_calls": 1, "verified": true, "sensitive_leak": false}
+  },
+  {
+    "id": "extraction_account_with_spaces",
+    "category": "B. EXTRACTION",
+    "description": "account id with space",
+    "messages": ["Hi", "acc 1001"],
+    "lookup": {"type": "ok", "account_id": "ACC1001"},
+    "payment": {"type": "none"},
+    "expected": {"final_state": "WAITING_FOR_IDENTITY", "lookup_calls": 1, "payment_calls": 0, "verified": false, "sensitive_leak": false}
+  },
+  {
+    "id": "extraction_lowercase_account",
+    "category": "B. EXTRACTION",
+    "description": "lowercase account id",
+    "messages": ["Hi", "acct: acc1001"],
+    "lookup": {"type": "ok", "account_id": "ACC1001"},
+    "payment": {"type": "none"},
+    "expected": {"final_state": "WAITING_FOR_IDENTITY", "lookup_calls": 1, "payment_calls": 0, "verified": false, "sensitive_leak": false}
+  },
+  {
+    "id": "extraction_natural_dob",
+    "category": "B. EXTRACTION",
+    "description": "natural-language DOB",
+    "messages": ["Hi", "ACC1004", "my name is Rahul Mehta", "I was born on 29th Feb 1988"],
+    "lookup": {"type": "ok", "account_id": "ACC1004"},
+    "payment": {"type": "none"},
+    "expected": {"final_state": "VERIFIED", "lookup_calls": 1, "payment_calls": 0, "verified": true, "sensitive_leak": false}
+  },
+  {
+    "id": "extraction_dob_short_year",
+    "category": "B. EXTRACTION",
+    "description": "DOB with short year",
+    "messages": ["Hi", "ACC1001", "my name is Nithin Jain", "DOB 14/05/90"],
+    "lookup": {"type": "ok", "account_id": "ACC1001"},
+    "payment": {"type": "none"},
+    "expected": {"final_state": "VERIFIED", "lookup_calls": 1, "payment_calls": 0, "verified": true, "sensitive_leak": false}
+  },
+  {
+    "id": "extraction_spaced_pincode",
+    "category": "B. EXTRACTION",
+    "description": "pincode with spaces",
+    "messages": ["Hi", "ACC1001", "my name is Nithin Jain", "pincode is 4 0 0 0 0 1"],
+    "lookup": {"type": "ok", "account_id": "ACC1001"},
+    "payment": {"type": "none"},
+    "expected": {"final_state": "VERIFIED", "lookup_calls": 1, "payment_calls": 0, "verified": true, "sensitive_leak": false}
+  },
+  {
+    "id": "extraction_spoken_cvv",
+    "category": "B. EXTRACTION",
+    "description": "spoken CVV digits",
+    "messages": ["Hi", "ACC1001", "my name is Nithin Jain", "1990-05-14", "I'll pay 100", "cardholder is Nithin Jain", "4532015112830366", "CVV is one two three", "expires 12/2027", "process payment"],
+    "lookup": {"type": "ok", "account_id": "ACC1001"},
+    "payment": {"type": "ok"},
+    "expected": {"final_state": "SUCCESS", "lookup_calls": 1, "payment_calls": 1, "verified": true, "sensitive_leak": false}
+  },
+  {
+    "id": "extraction_month_name_expiry",
+    "category": "B. EXTRACTION",
+    "description": "month-name expiry",
+    "messages": ["Hi", "ACC1001", "my name is Nithin Jain", "1990-05-14", "pay 10", "cardholder is Nithin Jain", "4532015112830366", "CVV 123", "expires December 2027", "process payment"],
+    "lookup": {"type": "ok", "account_id": "ACC1001"},
+    "payment": {"type": "ok"},
+    "expected": {"final_state": "SUCCESS", "lookup_calls": 1, "payment_calls": 1, "verified": true, "sensitive_leak": false}
+  },
+  {
+    "id": "extraction_amount_in_words",
+    "category": "B. EXTRACTION",
+    "description": "amount in words",
+    "messages": ["Hi", "ACC1001", "my name is Nithin Jain", "1990-05-14", "pay five hundred rupees", "cardholder is Nithin Jain", "4532015112830366", "CVV 123", "expires 12/2027", "process payment"],
+    "lookup": {"type": "ok", "account_id": "ACC1001"},
+    "payment": {"type": "ok"},
+    "expected": {"final_state": "SUCCESS", "lookup_calls": 1, "payment_calls": 1, "verified": true, "sensitive_leak": false}
+  }
+]

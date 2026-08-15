@@ -1,0 +1,12 @@
+__pycache__/
+.pytest_cache/
+*.pyc
+*.pyo
+.venv/
+.vscode/
+coverage.xml
+htmlcov/
+*.egg-info/
+.DS_Store
+
+evaluation/results.json

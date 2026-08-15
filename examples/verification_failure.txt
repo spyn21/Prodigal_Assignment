@@ -1,0 +1,10 @@
+User: Hi
+Agent: Hi! Please provide your account ID.
+User: My account is ACC1001
+Agent: Thanks. Please provide your full name and at least one of: DOB, Aadhaar last 4, or pincode.
+User: My name is John Doe and DOB is 01/01/1990
+Agent: I could not verify the identity yet. Please provide the full name and a matching DOB, Aadhaar last 4, or pincode.
+User: I don't remember
+Agent: I could not verify the identity yet. Please provide the full name and a matching DOB, Aadhaar last 4, or pincode.
+User: Reset my attempts
+Agent: Verification failed too many times. This conversation is locked for security reasons.
